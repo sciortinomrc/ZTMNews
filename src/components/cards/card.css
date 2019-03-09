@@ -15,7 +15,8 @@
 
 .cardRes img {
     border-radius: 6px 6px 0 0;
-    background: #fff
+    background: #fff;
+    max-width:100%;
 }
 .cardRes img, p, h1 {
     cursor: pointer;

@@ -29,7 +29,8 @@ class App extends Component {
 
     fetch('https://ztmnews.zerobot.xyz/api/resources')
       .then(response => response.json())
-      .then(resourceData => { this.setState({ resources: resourceData }) });
+      .then(resourceData => { console.log(resourceData); this.setState({ resources: resourceData }) });
+
     this.routeHandler()
   }
 

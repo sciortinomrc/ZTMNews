@@ -1,15 +1,18 @@
-import React from 'react';
+import React , {lazy, Suspense} from 'react';
 import './card.css'
 
-const MasonCards = ({ resource, onClick, upvote, userId, hasVoted }) => {
 
+const RenderedImage=lazy(()=>import('./RenderedImage.js'))
+
+const MasonCards = ({ resource, onClick, upvote, userId, hasVoted }) => {
     if(!resource.meta.image) resource.meta.image = "none"
     if (!resource.meta.image.includes("http") || resource.meta.image.includes("vanguardngr")) resource.meta.image = `https://via.placeholder.com/1500/2e303a/FFFFFF/?text=No%20Image%20Found`
-
         return (
             <div className="p-2" >
                 <div className="card cardRes">
-                    <img className="card-img-top img-respsonsive" src={resource.meta.image} alt={resource.meta.title.slice(0, 15)} onClick={() => onClick(resource.slug)} />
+                   <Suspense fallback={<h2>Loading image... </h2>}>
+                        <RenderedImage resource={resource} onClick={onClick} />
+                    </Suspense>
                     <div className="card-body ">
                         <h1 onClick={() => onClick(resource.slug)}>{resource.meta.title}</h1>
                         <p className="card-text" onClick={() => onClick(resource.slug)}>{resource.meta.description}</p>

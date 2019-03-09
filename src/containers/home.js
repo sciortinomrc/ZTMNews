@@ -24,6 +24,18 @@ const Home = ({ resources, onClick, display, changeDisplay, userId, updateVotes 
         else return false
     }
 
+    const displayResources=(resources,onClick,userId)=>{
+        const renderedResources=new Array(Object.keys(resources).length);
+        let i=0;
+        for(let res of Object.keys(resources)){
+                        console.log(i)
+                        if (display === "tableview") renderedResources[i]=<ListCards key={i} resource={resources[res]} onClick={onClick} upvote={() => submitUpvote(resources[res].slug)} hasVoted={hasVoted(resources[res].upvotes, userId)} />
+                        else renderedResources[i]=<MasonCards key={i} resource={resources[res]} onClick={onClick} upvote={() => submitUpvote(resources[res].slug)} hasVoted={hasVoted(resources[res].upvotes, userId)} />
+                        i++
+                    }
+                console.log(renderedResources)
+        return renderedResources;
+        }
     return (
         <div>
             <div className="speech-bubble" role="alert">
@@ -34,10 +46,7 @@ const Home = ({ resources, onClick, display, changeDisplay, userId, updateVotes 
             <p className="text-white text-center">Displaying: {Object.keys(resources).length} Resources</p>
             <div className={cardView[display]}>
                 {
-                    Object.keys(resources).map((res, i) => {
-                        if (display === "tableview") return <ListCards key={i} resource={resources[res]} onClick={onClick} upvote={() => submitUpvote(resources[res].slug)} hasVoted={hasVoted(resources[res].upvotes, userId)} />
-                        else return <MasonCards key={i} resource={resources[res]} onClick={onClick} upvote={() => submitUpvote(resources[res].slug)} hasVoted={hasVoted(resources[res].upvotes, userId)} />
-                    })
+                        displayResources(resources,onClick, userId)
                 }
             </div>
 
